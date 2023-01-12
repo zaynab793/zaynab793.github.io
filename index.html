@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculator</title>
+    <script
+      src="https://kit.fontawesome.com/442fa27fbc.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <section class="calculator">
+        <p>Calc</p>
+        <div class="container">
+          <div id="display" class="display"></div>
+          <div id="buttons-wrapper" class="buttons-wrapper">
+            <div class="btn number-btn" onclick="setNumber(7)">7</div>
+            <div class="btn number-btn" onclick="setNumber(8)">8</div>
+            <div class="btn number-btn" onclick="setNumber(9)">9</div>
+            <div id="ac-btn" class="btn clear-btn" onclick="setClear()">AC</div>
+            <div class="btn number-btn" onclick="setNumber(4)">4</div>
+            <div class="btn number-btn" onclick="setNumber(5)">5</div>
+            <div class="btn number-btn" onclick="setNumber(6)">6</div>
+            <div class="btn operator-btn" onclick="setOperator('+')">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="btn number-btn" onclick="setNumber(1)">1</div>
+            <div class="btn number-btn" onclick="setNumber(2)">2</div>
+            <div class="btn number-btn" onclick="setNumber(3)">3</div>
+            <div class="btn operator-btn" onclick="setOperator('-')">
+              <i class="fa-solid fa-minus"></i>
+            </div>
+            <div class="btn number-btn">.</div>
+            <div class="btn number-btn">0</div>
+            <div class="btn operator-btn" onclick="setOperator('/')">
+              <i class="fa-solid fa-divide"></i>
+            </div>
+            <div class="btn operator-btn" onclick="setOperator('*')">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+          </div>
+          <div id="result-wrapper" class="result-wrapper">
+            <div id="change-mode" class="btn mode-btn" onclick="applyTheme()">
+              Theme
+            </div>
+            <div id="result-btn" class="btn result-btn" onclick="setResult()">
+              Result
+            </div>
+          </div>
+        </div>
+
+        <script>
+          let number1 = null;
+          let number2 = null;
+          let operator = null;
+          let result = 0;
+          const display = document.getElementById("display");
+          function setNumber(number) {
+            if (!operator) {
+              number1 = !number1 ? number : `${number1}${number}`;
+              display.innerHTML = number1;
+              return;
+            }
+            number2 = !number2 ? number : `${number2}${number}`;
+            display.innerHTML = `${number1} ${operator} ${number2}`;
+          }
+
+          function setOperator(operatorSign) {
+            if (!operator) {
+              operator = operatorSign;
+              display.innerHTML = `${display.innerHTML} ${operator}`;
+              return;
+            }
+          }
+
+          function setResult() {
+            switch (operator) {
+              case "+":
+                result = Number(number1) + Number(number2);
+                display.innerHTML = result;
+                return;
+              case "-":
+                result = Number(number1) - Number(number2);
+                display.innerHTML = result;
+                return;
+              case "/":
+                result = Number(number1) / Number(number2);
+                display.innerHTML = result;
+                return;
+              case "*":
+                result = Number(number1) * Number(number2);
+                display.innerHTML = result;
+                return;
+              default:
+                return;
+            }
+          }
+
+          function setClear() {
+            number1 = null;
+            number2 = null;
+            operator = null;
+            result = 0;
+            display.innerHTML = "";
+          }
+
+          function applyTheme() {
+            document.body.classList.toggle("body-theme-2");
+            document
+              .getElementById("display")
+              .classList.toggle("display-theme-2");
+            document
+              .getElementById("buttons-wrapper")
+              .classList.toggle("buttons-wrapper-theme-2");
+            document
+              .getElementById("result-wrapper")
+              .classList.toggle("result-wrapper-theme-2");
+            document
+              .getElementById("ac-btn")
+              .classList.toggle("ac-btn-theme-2");
+            document
+              .getElementById("result-btn")
+              .classList.toggle("result-btn-theme-2");
+
+            return;
+          }
+        </script>
+      </section>
+    </main>
+  </body>
+</html>
